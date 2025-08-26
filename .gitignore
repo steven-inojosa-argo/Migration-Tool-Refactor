@@ -1,0 +1,108 @@
+# Cache files and directories
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+env/
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.*
+
+# Google Sheets credentials
+credentials.json
+*.json
+google-credentials/
+service-account-*.json
+client_secret*.json
+token.json
+
+# Test output files
+inventory_data.csv
+test_output.csv
+*.csv
+
+# Node.js cache
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# IDE cache
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS cache
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# argo-utils-cli repository
+@https://github.com/CrystalBallers/argo-utils-cli.git/
+argo-utils-cli/
+
+# SQL output files
+exported_sql/
+!schema.sql
+!migrations/*.sql
+
+# Results directory - generated outputs
+results/
+
+# Comparison reports
+comparison_detailed_report_*
+comparison_report_*
+stg_*
+int_*
+
+# Lineage data
+lineage_data/
+lineage.json
+
+# Large CSV files
+dataflows_encontrados*.csv
