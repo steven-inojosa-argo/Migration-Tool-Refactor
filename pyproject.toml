@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "argo-migration"
+version = "0.1.0"
+description = "Utilities for interacting with Domo API endpoints"
+readme = "README.md"
+authors = [{ name = "CrystalBallers", email = "services@argoanalytics.ai" }]
+license = { text = "Proprietary" }
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent"
+]
+
+dependencies = [
+    # Core
+    "python-dotenv>=1.0.0",
+    "requests>=2.28.0",
+    "pydantic>=2.0.0",
+    "PyYAML>=6.0.0",
+
+    # Snowflake integration
+    "snowflake-connector-python[polars]>=3.0.0",
+    "cryptography>=3.4.8",
+
+    # Data processing
+    "polars>=0.20.0",
+    "pandas>=2.0.0",
+
+    # Google Sheets integration
+    "google-api-python-client>=2.0.0",
+    "google-auth>=2.0.0",
+    "google-auth-oauthlib>=1.0.0",
+    "google-auth-httplib2>=0.1.0",
+    "gspread>=5.0.0",
+    "oauth2client>=4.1.3",
+
+    # Data comparison
+    "datacompy>=0.8.5",
+
+    # Internal package from GitHub (via SSH). Requires configured SSH key.
+    "domo-utils @ git+https://github.com/CrystalBallers/argo-utils-cli.git@main"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "mypy>=1.0.0",
+    "build",
+    "twine",
+    "ruff"
+]
+
+[project.urls]
+Homepage = "https://github.com/CrystalBallers/argo-migration"
+"Bug Tracker" = "https://github.com/CrystalBallers/argo-migration/issues"
+
+[project.scripts]
+# Exposes a CLI command called `argo-migration`
+argo-migration = "argo_migration.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"argo_migration" = ["py.typed"]
