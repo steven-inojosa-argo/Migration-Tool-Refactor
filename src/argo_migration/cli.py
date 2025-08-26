@@ -283,7 +283,7 @@ def compare_from_spreadsheet(spreadsheet_id: str = None, sheet_name: str = None,
     """Compare multiple datasets from Google Sheets configuration."""
     try:
         from .services.comparison.dataset_comparator import DatasetComparator
-        from .utils.common import get_env_config
+        from .utils.common import get_env_config, setup_dual_connections
         
         logger.info("🚀 Starting spreadsheet-based comparisons...")
         
@@ -325,16 +325,22 @@ def compare_from_spreadsheet(spreadsheet_id: str = None, sheet_name: str = None,
         for key, value in config.items():
             logger.info(f"   {key}: {value}")
         
-        # Initialize comparator
-        comparator = DatasetComparator()
-        
-        # Setup connections
+        # Setup connections first
         logger.info("🔗 Setting up connections...")
-        if not comparator.setup_connections():
+        success, domo_handler, snowflake_handler = setup_dual_connections()
+        
+        if not success:
             logger.error("❌ Failed to setup connections")
             return False
         
         logger.info("✅ Connections established")
+        
+        # Initialize comparator with existing connections
+        comparator = DatasetComparator()
+        comparator.domo_handler = domo_handler
+        comparator.snowflake_handler = snowflake_handler
+        comparator._domo_connected = True
+        comparator._snowflake_connected = True
         
         try:
             # Run comparisons from spreadsheet
@@ -388,7 +394,7 @@ def compare_from_inventory(credentials_path: str = None, sampling_method: str = 
     """Compare datasets from inventory spreadsheet."""
     try:
         from .services.comparison.dataset_comparator import DatasetComparator
-        from .utils.common import get_env_config
+        from .utils.common import get_env_config, setup_dual_connections
         
         logger.info("🚀 Starting inventory-based comparisons...")
         
@@ -424,16 +430,22 @@ def compare_from_inventory(credentials_path: str = None, sampling_method: str = 
         for key, value in config.items():
             logger.info(f"   {key}: {value}")
         
-        # Initialize comparator
-        comparator = DatasetComparator()
-        
-        # Setup connections
+        # Setup connections first
         logger.info("🔗 Setting up connections...")
-        if not comparator.setup_connections():
+        success, domo_handler, snowflake_handler = setup_dual_connections()
+        
+        if not success:
             logger.error("❌ Failed to setup connections")
             return False
         
         logger.info("✅ Connections established")
+        
+        # Initialize comparator with existing connections
+        comparator = DatasetComparator()
+        comparator.domo_handler = domo_handler
+        comparator.snowflake_handler = snowflake_handler
+        comparator._domo_connected = True
+        comparator._snowflake_connected = True
         
         try:
             # Run comparisons from inventory

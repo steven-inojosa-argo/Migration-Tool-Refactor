@@ -260,7 +260,7 @@ def setup_dual_connections(domo_handler=None, snowflake_handler=None) -> tuple[b
         
         # Setup Domo if not provided
         if domo_handler is None:
-            from .domo import DomoHandler
+            from ..api.domo import DomoHandler
             domo_handler = DomoHandler()
         
         try:
@@ -274,7 +274,7 @@ def setup_dual_connections(domo_handler=None, snowflake_handler=None) -> tuple[b
         
         # Setup Snowflake if not provided
         if snowflake_handler is None:
-            from .snowflake import SnowflakeHandler
+            from ..api.snowflake import SnowflakeHandler
             snowflake_handler = SnowflakeHandler()
         
         if not snowflake_handler.setup_connection():
@@ -302,7 +302,7 @@ def show_mfa_debug_info():
         
         # Show TOTP debug info if available
         try:
-            from .snowflake import show_current_totp_debug
+            from ..api.snowflake import show_current_totp_debug
             logger.info("🔐 Using MFA authentication - TOTP Debug Info:")
             show_current_totp_debug()
         except ImportError:
@@ -318,7 +318,7 @@ def reload_environment():
     logger.info("🔄 Reloading environment variables...")
     
     try:
-        from .snowflake import reload_env_vars
+        from ..api.snowflake import reload_env_vars
         reload_env_vars()
         show_mfa_debug_info()
     except ImportError:

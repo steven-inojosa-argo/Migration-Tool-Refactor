@@ -76,9 +76,13 @@ class InventoryComparisonRunner:
                 self.logger.info("✅ No valid entries found for comparison")
                 return {"success": 0, "failed": 0, "total": 0, "errors": []}
             
-            # Setup connections once
-            if not self.comparator.setup_connections():
-                raise Exception("Failed to setup connections")
+            # Check if connections are already established
+            if not (self.comparator._domo_connected and self.comparator._snowflake_connected):
+                self.logger.info("🔗 Setting up connections...")
+                if not self.comparator.setup_connections():
+                    raise Exception("Failed to setup connections")
+            else:
+                self.logger.info("✅ Using existing connections")
             
             # Process comparisons
             results = self._process_inventory_comparisons(
